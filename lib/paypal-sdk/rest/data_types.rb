@@ -75,7 +75,8 @@ module PayPal::SDK
           object_of :potential_payer_info, PotentialPayerInfo
           object_of :credit_financing_offered, CreditFinancingOffered
           object_of :failure_reason, String
-        end
+          object_of :application_context, ApplicationContext
+	end
 
         include RequestDataType
 
@@ -2586,7 +2587,17 @@ module PayPal::SDK
           object_of :offer_type, String
         end
       end
-
+	    
+      class ApplicationContext < Base
+        def self.load_members
+          object_of :brand_name, String
+          object_of :locale, String
+          object_of :landing_page, String
+          object_of :shipping_preference, String
+          object_of :user_action, String
+        end
+      end
+	    
       constants.each do |data_type_klass|
         data_type_klass = const_get(data_type_klass)
         data_type_klass.load_members if defined? data_type_klass.load_members
